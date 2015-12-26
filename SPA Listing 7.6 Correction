@@ -1,0 +1,32 @@
+*
+  * app7.6.js - - Simple connect server with logging.
+  Listing 7.5 Modify the node server application to use Connect—webapp/app.js
+  Listing 7.6 Add logging to a node server application using Connect—webapp/app.js
+*/
+/*jslint node : true, continue : true,
+  devel : true, indent : 2, maxerr : 50,
+  newcap : true, nomen : true, plusplus : true,
+  regexp : true, sloppy : true, vars : false,
+  white : true
+*/
+/*global */
+var
+  connectHello, 
+  http = require( 'http' ),
+  connect = require( 'connect' ),
+  app = connect(), // A connect object - will use a middleware function.
+  server = http.createServer( app );
+  bodyText = 'This is app7.5.js: a simple "connect" server demonstration\n with logging.';
+// Define a middleware function:
+connectHello = function ( request, response, next ) { 
+  response.setHeader( 'content-length', bodyText.length );
+  response.end( bodyText ); // Ends the server response 
+                            // - outputs argument to web page.
+};
+var logger = require('morgan'); // Needed to install morgan. See below link for morgam logger.
+app
+  //.use( connect.logger() ) // Added in Listing 7.6.
+  .use(logger('combined')) // Correction per http://stackoverflow.com/questions/24692435/nodejs-connect-error-has-no-method-logger
+  .use( connectHello );
+server.listen( 3000 );
+console.log( 'Listening on port %d', server.address().port );
