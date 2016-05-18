@@ -31,8 +31,8 @@ var fcn = function (x) {
 };
 
 var o2 = fcn(4);
-console.log('o2 Prototype: ', Object.getPrototypeOf(o2)); // Object {a: 3}? Why not 4?
-console.log('o2 : ', o2); // Object {a: 3}? Why not 4?
+console.log('o2 Prototype: ', Object.getPrototypeOf(o2)); // Object {a: 3}
+console.log('o2 : ', o2); // {y: 4}
 console.log(JSON.stringify(Object.getOwnPropertyDescriptor(o2, "y")));
 // --------------------------------------------------
 // test
